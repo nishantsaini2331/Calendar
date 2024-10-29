@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import {
   resetEventToEdit,
-  setEvents2,
+  setEvents,
   setIsEdit,
   setIsModelOpen,
 } from "../store/eventSlice";
@@ -14,8 +14,6 @@ function Modal({ type = "add" }) {
   const { selectedDate, events, eventToEdit } = useSelector(
     (state) => state.event
   );
-
-
 
   const [newEvent, setNewEvent] = useState(() => {
     const now = new Date();
@@ -31,7 +29,6 @@ function Modal({ type = "add" }) {
     };
   });
 
-
   const dispatch = useDispatch();
   const { token } = useSelector((state) => state.user);
 
@@ -39,10 +36,9 @@ function Modal({ type = "add" }) {
     try {
       const response = await axios.post(
         `${import.meta.env.VITE_BACKEND_URL}/events`,
-        {
-          ...newEvent,
-          date: new Date(selectedDate).toLocaleDateString("en-CA"),
-        },
+
+        newEvent,
+
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -51,7 +47,7 @@ function Modal({ type = "add" }) {
       );
 
       toast.success(response.data.message);
-      dispatch(setEvents2([...events, response.data.event]));
+      dispatch(setEvents([...events, response.data.event]));
     } catch (error) {
       console.error(error);
       toast.error(error.response.data.message);
@@ -125,7 +121,11 @@ function Modal({ type = "add" }) {
           <input
             type="date"
             className="w-full border rounded-md px-3 py-2 mt-2"
-            value={newEvent.date}
+            defaultValue={
+              type == "edit"
+                ? new Date(eventToEdit.date).toLocaleDateString("en-CA")
+                : newEvent.date
+            }
             onChange={(e) =>
               setNewEvent({
                 ...newEvent,

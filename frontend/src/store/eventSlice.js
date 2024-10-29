@@ -15,7 +15,7 @@ const eventSlice = createSlice({
       state.selectedDate = action.payload;
     },
 
-    setEvents2(state, action) {
+    setEvents(state, action) {
       const events = action.payload.reduce((acc, event) => {
         const date = new Date(event.date).toDateString();
         acc[date] = [...(acc[date] || []), event];
@@ -44,7 +44,7 @@ const eventSlice = createSlice({
 
 export const {
   setSelectedDate2,
-  setEvents2,
+  setEvents,
   setModifiedEvent,
   setIsModelOpen,
   setIsEdit,

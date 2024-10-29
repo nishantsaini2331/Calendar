@@ -15,7 +15,7 @@ function Calendar() {
 
   const [newEvent, setNewEvent] = useState(() => {
     const now = new Date();
-    const hours = String(now.getHours()).padStart(2, "0"); 
+    const hours = String(now.getHours()).padStart(2, "0");
     const minutes = String(now.getMinutes()).padStart(2, "0");
 
     return {
@@ -48,7 +48,7 @@ function Calendar() {
   }
 
   function handleDateClick(date) {
-    dispatch(setIsModelOpen(false))
+    dispatch(setIsModelOpen(false));
     dispatch(setSelectedDate2(date.toISOString()));
     setSelectedDate(date);
     setNewEvent({

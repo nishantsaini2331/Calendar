@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import axios from "axios";
 import {
-  setEvents2,
+  setEvents,
   setEventToEdit,
   setIsEdit,
   setIsModelOpen,
@@ -23,7 +23,7 @@ export async function fetchEvents(token, dispatch) {
       }
     );
 
-    dispatch(setEvents2(response.data.events));
+    dispatch(setEvents(response.data.events));
   } catch (error) {
     console.error(error);
     toast.error(error.response.data.message);

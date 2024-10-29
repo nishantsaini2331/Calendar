@@ -3,7 +3,6 @@ const User = require("../models/user.model");
 
 async function createEvent(req, res) {
   const { title, description, date, time } = req.body;
-
   try {
     if (!title) {
       return res.status(400).json({
@@ -116,7 +115,7 @@ async function getEventById(req, res) {
 async function updateEvent(req, res) {
   const { id } = req.params;
 
-  const { title, description, start, end } = req.body;
+  const { title, description, date, time } = req.body;
 
   try {
     if (!req.user) {
@@ -128,7 +127,7 @@ async function updateEvent(req, res) {
 
     const event = await Event.findOneAndUpdate(
       { _id: id, user: req.user },
-      { title, description, start, end },
+      { title, description, date, time },
       { new: true }
     );
     return res.status(200).json({
