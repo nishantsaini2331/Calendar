@@ -27,7 +27,7 @@ const verifyUser = async (req, res, next) => {
       if (!user) {
         return res.status(401).json({
           success: false,
-          message: "Invalid token, please sign in",
+          message: "Please sign in",
         });
       }
       req.user = user.id;
